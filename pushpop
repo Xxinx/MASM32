@@ -1,0 +1,25 @@
+ .386
+ .model flat, stdcall
+ include \masm32\include\masm32rt.inc
+ include \masm32\macros\macros.asm       
+ includelib \masm32\lib\masm32.lib
+ includelib \masm32\lib\gdi32.lib
+ includelib \masm32\lib\user32.lib
+ includelib \masm32\lib\kernel32.lib
+.data
+Result db "The value is : ",0
+.code
+start :
+mov eax, 200
+push eax
+mov ebx, 5
+mov ecx, 5
+imul ebx, ecx 
+pop eax
+sub eax, ebx
+add eax, 30
+push eax 
+invoke StdOut, addr Result
+pop eax
+print str$(eax)
+end start
