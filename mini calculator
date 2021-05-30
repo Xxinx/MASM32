@@ -1,0 +1,74 @@
+ include \masm32\include\masm32rt.inc
+ include \masm32\macros\macros.asm       
+ includelib \masm32\lib\masm32.lib
+ includelib \masm32\lib\gdi32.lib
+ includelib \masm32\lib\user32.lib
+ includelib \masm32\lib\kernel32.lib
+.data
+choice dd 0
+tmp dd 0
+tmp1 dd 0
+.code
+start :
+print str$("<<Mini Calculator 2 Values>>"),13,10
+print chr$("1. Additional"),13,10
+print chr$("2. Subtraction"),13,10
+print chr$("3. Mutiplication"),13,10
+print chr$("4. Division"),13,10
+print chr$("5. Exit"),13,10
+
+mov tmp, sval(input("Enter Number 1 : "))
+mov tmp1, sval(input("Enter Number 2 : "))
+mov choice, sval(input("Enter your choice : "))
+
+cmp choice, 1
+je first
+
+cmp choice, 2
+je second 
+
+cmp choice, 3
+je third
+
+cmp choice, 4
+je forth
+
+cmp choice, 5
+je finish
+
+first :
+print chr$("The number 1 + number 2 = " )
+mov eax, tmp
+mov ebx, tmp1
+add eax, ebx
+print str$(eax)
+jmp finish
+
+second :
+print chr$("The number 1 - number 2 = " )
+mov eax, tmp
+mov ebx, tmp1
+sub eax, ebx
+print str$(eax)
+jmp finish
+
+third : 
+print chr$("The number 1 * number 2 = " )
+mov eax, tmp
+mov ebx, tmp
+imul eax, ebx
+print str$(eax)
+jmp finish
+
+forth :
+print chr$("The number 1 / number 2 = " )
+mov eax, tmp
+mov ebx, tmp1
+xor edx, edx
+idiv ebx 
+print str$(eax)
+jmp finish
+
+finish :
+exit 
+end start
