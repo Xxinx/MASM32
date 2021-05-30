@@ -1,0 +1,44 @@
+include \masm32\include\masm32rt.inc
+include \masm32\macros\macros.asm       
+includelib \masm32\lib\masm32.lib
+includelib \masm32\lib\gdi32.lib
+includelib \masm32\lib\user32.lib
+includelib \masm32\lib\kernel32.lib
+
+.data
+data_input dd 0
+countHorizontal dd 0
+countVertical dd 0
+.code
+start:
+mov data_input, sval(input("Enter the Triangle Size = "))
+
+_start:
+mov countHorizontal, 0
+
+_print_Horizontal:
+ ccout "*"
+ inc countHorizontal
+ mov ecx,countHorizontal
+ cmp ecx,data_input
+ jne _print_Horizontal
+ je _nextline
+
+_nextline:
+ print chr$ (" "),13,10
+ dec data_input
+ cmp data_input,0
+ jne _start
+ je _finish
+
+_finish:
+exit
+end start
+
+
+output :
+*****
+****
+***
+**
+*
