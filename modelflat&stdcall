@@ -1,0 +1,50 @@
+.386
+.model flat, stdcall
+ include \masm32\include\masm32rt.inc
+ include \masm32\macros\macros.asm       
+ includelib \masm32\lib\masm32.lib
+ includelib \masm32\lib\gdi32.lib
+ includelib \masm32\lib\user32.lib
+ includelib \masm32\lib\kernel32.lib
+ .data
+ var1 dd 0
+ var2 dd 0
+ Display db "Printing the value with ascending and descending order", 0
+ result1 db "The value of descending is : ",0
+ result2 db "The value of descending is : ",0
+ Endofprogram db "End of orders", 0
+ .code
+ start:
+ invoke StdOut, addr Display
+ mov var1, sval(input("Enter first number : "))
+ mov var2, sval(input("Enter second number : "))
+ mov ebx, var2
+ jmp message1
+ 
+ message1:
+ invoke StdOut, addr result1
+ print str$(var2), 10
+ dec var2
+ mov eax, var2
+ cmp eax, var1
+ jg message1
+ je message2
+ 
+ message2:
+ invoke StdOut, addr result1
+ print str$(var2),10
+ jmp message3
+ 
+ message3 :
+ invoke StdOut, addr result2
+ print str$(var1),10
+ inc var1
+ mov eax,var1
+ cmp eax, ebx 
+ jl message3 
+ je message3
+ 
+ termination:
+ invoke StdOut, addr Endofprogram
+ exit
+ end start
