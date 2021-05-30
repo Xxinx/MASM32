@@ -1,0 +1,16 @@
+.386
+.model flat, stdcall
+ include \masm32\include\masm32rt.inc
+ include \masm32\macros\macros.asm       
+ includelib \masm32\lib\masm32.lib
+ includelib \masm32\lib\gdi32.lib
+ includelib \masm32\lib\user32.lib
+ includelib \masm32\lib\kernel32.lib
+ .data
+  DisplayOutputmsg db "Testing", 0
+ 
+.code
+start :
+invoke StdOut, addr DisplayOutputmsg
+exit
+end start
